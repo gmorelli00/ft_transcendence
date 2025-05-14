@@ -1,0 +1,34 @@
+/* Nome del giocatore */
+.player-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Impedisce che il testo vada a capo */
+}
+
+/* Bottone personalizzato */
+.custom-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 50px;
+  max-height: 50px;
+  font-size: 20px; /* Puoi aggiungere un font-size per un aspetto più consistente */
+  transition: transform 0.3s ease; /* Per animazioni al passaggio del mouse */
+}
+
+/* Bottone personalizzato - Responsivo per dispositivi mobili */
+@media screen and (max-width: 768px) {
+  .custom-btn {
+    max-width: 40px; /* Riduci la dimensione del bottone sui dispositivi mobili */
+    max-height: 40px;
+    font-size: 18px; /* Adatta la dimensione del testo */
+  }
+}
+
+/* Per schermi più piccoli, come quelli sotto i 480px */
+@media screen and (max-width: 480px) {
+  .custom-btn {
+    max-width: 30px;
+    max-height: 30px;
+    font-size: 16px; /* Ulteriore riduzione per schermi molto piccoli */
+  }
+}

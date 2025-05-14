@@ -1,0 +1,102 @@
+#prompt-play {
+  font-size: 50px;
+  font-family: "Versa Versa";
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+#btn-oauth {
+  width: 300px;
+  height: 69px;
+  font-size: 20px;
+  font-family: "Versa Versa";
+  /* box-shadow: 3px 4px rgb(0, 0, 0); */
+  transition: box-shadow 0.3s, transform 0.3s;
+  background: linear-gradient(120deg, #c32606 30%, #f3a81c 80%, #fdf8a3 100%);
+  border: none;
+  border-radius: 4px;
+  position: relative;
+}
+
+.btn-press {
+  transition: all 0.1s ease-in-out;
+  transform: translateY(0);
+  box-shadow: 3px 4px rgba(0, 0, 0);
+}
+
+.btn-press:hover {
+  transform: translateY(3px);
+  box-shadow: 0px 0px rgba(0, 0, 0);
+}
+
+/* .btn-press:active {
+  transform: translateY(10px);
+  box-shadow: 1px 2px rgba(0, 0, 0);
+} */
+
+#btn-signup {
+  border-radius: 4px;
+  font-size: 20px;
+  width: 300px;
+  height: 69px;
+  font-family: "Versa Versa";
+  box-shadow: 3px 4px rgb(0, 0, 0);
+  background: linear-gradient(120deg, #c32606 30%, #f3a81c 80%, #fdf8a3 100%);
+  transition: box-shadow 0.3s, transform 0.3s;
+  border: none;
+  border-radius: 4px;
+}
+
+#icon-controller-sx,
+#icon-ping-pong,
+#icon-controller-dx {
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  margin-right: 7px;
+}
+
+/* Media Queries per dispositivi con schermi più piccoli */
+@media (max-width: 1024px) {
+  #prompt-play {
+    font-size: 40px; /* Ridurre la dimensione del testo per tablet */
+  }
+
+  #btn-oauth{
+    width: 250px;
+    height: 60px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  #prompt-play {
+    font-size: 35px; /* Ridurre ulteriormente il testo per dispositivi mobili */
+  }
+
+  #btn-oauth {
+    width: 220px;
+    height: 50px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  #prompt-play {
+    font-size: 30px; /* Ancora più piccolo su schermi molto piccoli */
+  }
+
+  #btn-oauth {
+    width: 200px;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  /* Ulteriori modifiche per migliorare l'aspetto su dispositivi ultra piccoli */
+  #btn-oauth {
+    margin-right: 10px;
+    width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
+  }
+}
+

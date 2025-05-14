@@ -1,0 +1,29 @@
+@font-face {
+	font-family: 'Versa Versa';
+	src: url(../fonts/VersaVersa.woff2) format('woff2'),
+		 url(../fonts/VersaVersa.woff) format('woff'),
+		 url(../fonts/VersaVersa.ttf) format('truetype'); /* Aggiunto il formato TTF per maggiore compatibilità */
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+  }
+  
+  /* Esempio per un utilizzo responsive del font */
+  body {
+	font-family: 'Versa Versa', sans-serif;
+	font-size: 1rem; /* Utilizza unità relative come rem */
+  }
+  
+  /* Impostazioni specifiche per schermi piccoli */
+  @media (max-width: 768px) {
+	body {
+	  font-size: 0.9rem; /* Ridurre la dimensione del font sui dispositivi più piccoli */
+	}
+  }
+  
+  @media (max-width: 480px) {
+	body {
+	  font-size: 0.8rem; /* Ancora più piccolo su schermi molto piccoli */
+	}
+  }
+  

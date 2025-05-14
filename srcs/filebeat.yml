@@ -1,0 +1,18 @@
+filebeat.inputs:
+  - type: filestream
+    id: docker-logs
+    paths:
+      - /var/lib/docker/containers/*/*-json.log
+    processors:
+      - add_docker_metadata: ~
+      - drop_event:
+          when:
+            contains:
+              message: "Health check"
+      - add_fields:
+          target: container_info
+          fields:
+            container_name: "my_custom_container"
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]

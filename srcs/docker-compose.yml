@@ -1,0 +1,266 @@
+#------------------------------ NETWORK ------------------------------>
+
+networks:
+  Transcendence_Network:
+    name: Transcendence_Network
+    driver: bridge
+
+#--------------------------------------------------------------------->
+
+#------------------------------ MAIN SERVICES ------------------------------>
+
+services:
+  backend:
+    container_name: backend-transcendence
+    build: ./requirements/backend/
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - BACKEND:/BACKEND
+    env_file:
+      - .env
+    networks:
+      - Transcendence_Network
+
+  postgres:
+    container_name: postgres-transcendence
+    build: ./requirements/postgres/
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  # Volume per i dati del database
+      # - Transcendence_DB:/var/lib/postgresql/data
+      - ./postgres-config/postgresql.conf:/etc/postgresql/postgresql.conf  # File di configurazione personalizzato
+      - ./postgres-config/pg_hba.conf:/etc/postgresql/pg_hba.conf  # File di autenticazione personalizzato # File di configurazione pg_hba.conf
+    env_file:
+      - .env
+    networks:
+      - Transcendence_Network
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    command: ["postgres", "-c", "config_file=/var/lib/postgresql/data/postgresql.conf"]  # Specifica il file di configurazione
+    restart: always
+
+  adminer:
+    container_name: adminer-transcendence
+    image: adminer:4.8.1
+    depends_on:
+     - postgres
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - Transcendence_Network
+    restart: always
+
+#------------------------------ UTILS ------------------------------>
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis-transcendence
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - Transcendence_Network
+  #   volumes:
+  #     - REDIS:/data
+  #     - ./redis.conf:/usr/local/etc/redis/redis.conf
+  #   command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+  #   mem_limit: 512m
+
+  # daphne:
+  #   build: ./requirements/daphne/
+  #   container_name: daphne-transcendence
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - Transcendence_Network
+  #   ports:
+  #     - "8001:8001"
+  #   volumes:
+  #     - BACKEND:/BACKEND  # Condividi il codice con il backend
+  #   restart: always
+
+#------------------------------ MONITORING ------------------------------>
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-transcendence
+    ports:
+      - "127.0.0.1:9090:9090"
+    networks:
+      - Transcendence_Network
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    deploy:
+      replicas: ${DISABLE}
+
+  node_exporter:
+    image: prom/node-exporter
+    container_name: node_exporter-transcendence
+    networks:
+      - Transcendence_Network
+    ports:
+      - "127.0.0.1:9100:9100"
+    deploy:
+      replicas: ${DISABLE}
+
+  postgres_exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: postgres_exporter-transcendence
+    networks:
+      - Transcendence_Network
+    env_file:
+      - .env
+    environment:
+      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable"
+    ports:
+      - "127.0.0.1:9187:9187"
+    deploy:
+      replicas: ${DISABLE}
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana-transcendence
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - Transcendence_Network
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_API_KEYS_ENABLED=true
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=${HOSTINGER_MONITORING}
+      - GF_SMTP_USER=${MONITORING_MAIL}
+      - GF_SMTP_PASSWORD=${MONITORING_PASSWORD}
+      - GF_SMTP_FROM_ADDRESS=monitoring@omegaTranscendence.com
+      - GF_SMTP_FROM_NAME="Grafana Alerts"
+      - GF_SMTP_SKIP_VERIFY=true
+      - GF_FEATURE_TOGGLES_ENABLE=ruler
+      - GF_ALERTING_ENABLED=true
+      - GF_RULER_STORAGE_TYPE=database
+      - GF_OAUTH=${OAUTH2_GRAFANA_RED_URI}
+    user: "1000:1000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "7"
+    deploy:
+      replicas: ${DISABLE}
+
+#------------------------------ EFK STACK ------------------------------>
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: elasticsearch-transcendence
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - ELASTIC_PASSWORD=${EFK_PWD}  # Aggiungi questa linea
+      - xpack.security.enabled=false
+    ports:
+      - "127.0.0.1:9200:9200"
+    networks:
+      - Transcendence_Network
+    volumes:
+      - elasticsearch-volume:/usr/share/elasticsearch/data
+    deploy:
+      replicas: ${DISABLE}
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.10.0
+    container_name: filebeat-transcendence
+    user: root
+    depends_on:
+      - elasticsearch
+    volumes:
+      - filebeat-data:/usr/share/filebeat/data
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+    environment:
+      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+    networks:
+      - Transcendence_Network
+    deploy:
+      replicas: ${DISABLE}
+  
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.9.0
+    container_name: kibana-transcendence
+    depends_on:
+      - elasticsearch
+    ports:
+      - "127.0.0.1:5601:5601"
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+      - Transcendence_Network
+    deploy:
+      replicas: ${DISABLE}
+
+#---------------------------------------------------------------------------> 
+
+#------------------------------ PHYSICAL VOLUMES ------------------------------>
+
+volumes:
+  prometheus-data:
+    name: Transcendence_prometheus_volume
+
+  grafana-storage:
+    name: Transcendence_grafana_volume
+    driver: local
+    driver_opts:
+      device: ${HOME_NEW}/${PROJECT}/data/grafana-storage
+      o: bind
+      type: none
+
+  postgres-data:
+    name: Transcendence_postgres_volume
+    driver: local
+    driver_opts:
+      device: ${HOME_NEW}/${PROJECT}/data/postgres-storage
+      o: bind
+      type: none
+
+  BACKEND:
+      name: Transcendence_backend_volume
+      driver: local
+      driver_opts:
+        device: ${HOME_NEW}/${PROJECT}/data/BACKEND
+        o: bind
+        type: none
+
+  elasticsearch-volume:
+    name: Transcendence_elasticsearch_volume
+    driver: local
+    driver_opts:
+      device: ${HOME_NEW}/${PROJECT}/data/elasticsearch-storage
+      o: bind
+      type: none
+
+  filebeat-data:
+    name: Transcendence_filebeat_volume
+    driver: local
+    driver_opts:
+      device: ${HOME_NEW}/${PROJECT}/data/filebeat-data
+      o: bind
+      type: none
+
+
+  # REDIS:
+  #   name: Transcendence_redis_volume
+  #   driver: local
+  #   driver_opts:
+  #     device: ${HOME_NEW}/${PROJECT}/data/REDIS
+  #     o: bind
+  #     type: none
+
+#------------------------------------------------------------------------------>

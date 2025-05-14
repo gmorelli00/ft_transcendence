@@ -1,0 +1,106 @@
+#icon-lang {
+  margin-right: 0px;
+}
+
+#btn-lang {
+  margin-right: 0px;
+  font-family: "Versa Versa";
+}
+
+#btn-lang:active {
+  border: none !important;
+}
+
+.dropdown-menu {
+  background: rgb(0, 0, 0);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+.dropdown-menu:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Language options */
+.dropdown-item {
+  color: #fff;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: transparent;
+}
+
+.dropdown-item:active {
+  background-color: transparent;
+}
+
+/* Media Queries per dispositivi con schermi più piccoli */
+
+@media screen and (max-width: 1024px) {
+  #btn-lang {
+    font-size: 14px; /* Ridurre la dimensione del font sui dispositivi più piccoli */
+  }
+
+  .dropdown-menu {
+    width: 100%; /* Assicurarsi che il menu a discesa occupi tutta la larghezza */
+    padding: 8px; /* Aggiungere padding per migliorare la spaziatura */
+  }
+
+  .dropdown-item {
+    font-size: 16px; /* Ridurre la dimensione del testo per le voci del menu */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #btn-lang {
+    margin-right: 0px;
+    font-size: 12px; /* Font size ridotto su dispositivi molto piccoli */
+  }
+
+  .dropdown-menu {
+    width: 100%; /* Assicurarsi che il menu si adatti alla larghezza dello schermo */
+    padding: 8px;
+    box-shadow: none; /* Rimuovere l'ombra per i dispositivi piccoli */
+  }
+
+  .dropdown-item {
+    font-size: 14px; /* Font size per le voci del menu sui dispositivi piccoli */
+  }
+
+  #icon-lang {
+    font-size: 18px; /* Adattare la dimensione dell'icona per schermi piccoli */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #btn-lang {
+    font-size: 12px; /* Font ancora più piccolo su schermi molto piccoli */
+    padding: 5px 10px; /* Ridurre il padding per adattarsi meglio */
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    padding: 5px; /* Meno padding sui dispositivi ultra piccoli */
+  }
+
+  .dropdown-item {
+    font-size: 14px; /* Raggiungere una dimensione accettabile sui piccoli schermi */
+  }
+
+  #icon-lang {
+    font-size: 16px; /* Ulteriore riduzione della dimensione dell'icona */
+  }
+}
+
+#btn-lang:hover {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#btn-lang:focus {
+  outline: none;
+}
+

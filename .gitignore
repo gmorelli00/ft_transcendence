@@ -1,0 +1,8 @@
+*.pyc
+__pycache__
+db.sqlite3
+/env
+*.env
+.vscode
+.DS_Store
+tr-venv/

@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>transcendence</title>
+
+	<!-- bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+	<!-- favicon -->
+	<link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
+	<!-- styles -->
+	<link rel="stylesheet" href="{% static 'css/animated-bg.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+	<link rel="stylesheet" href="{% static 'css/btn-lang.css' %}">
+	<link rel="stylesheet" href="{% static 'css/home.css' %}">
+	<link rel="stylesheet" href="{% static 'css/login-icons.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<!-- fonts -->
+	<link rel="stylesheet" href="{% static 'css/VersaVersa.css' %}">
+	<link rel="stylesheet" href="{% static 'css/Quantico.css' %}">
+</head>
+
+<body>
+	<main id="full-page">
+		<!-- background -->
+		<div class="container-fluid" id="content-container">
+			<div class="animated-bg">
+				<div class="right-animation">
+					<span></span>
+				</div>
+				<div class="center-animation">
+					<span class="top-center-animation"></span>
+					<span class="bottom-center-animation"></span>
+				</div>
+				<div class="left-animation">
+					<span></span>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-center align-items-center w-100" id="top-banner" style="z-index: 100; position: relative;">
+				<h1 class="text-start" id="title">
+					<a href="/" class="text-decoration-none text-light">Transcendence</a>
+				</h1>				
+				<div class="d-flex ms-auto">
+					<div id="auth-btn-container"></div>
+					<div class="dropdown" id="btn-lang">
+						<button class="btn dropdown-toggle" id="dropdown" aria-expanded="false" data-bs-toggle="dropdown" type="button">
+						  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-language" id="icon-lang" style="font-size: 16px;">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+							<path d="M4 5h7"></path>
+							<path d="M9 3v2c0 4.418 -2.239 8 -5 8"></path>
+							<path d="M5 9c0 2.144 2.952 3.908 6.7 4"></path>
+							<path d="M12 20l4 -9l4 9"></path>
+							<path d="M19.1 18h-6.2"></path>
+						  </svg>
+						  <span id="selected-lang">English</span>
+						</button>
+						<div class="dropdown-menu" id="dropdown-lang-menu">
+						  <button class="dropdown-item active" aria-current="true">English</button>
+						  <button class="dropdown-item">Italiano</button>
+						  <button class="dropdown-item">한국어</button>
+						</div>
+					  </div>					  
+				</div>
+			</div>
+
+			<!-- Placeholder for dynamic main content -->
+			<div
+				class="d-flex flex-column justify-content-center align-items-center"
+				id="dynamic-content"
+			>
+				<!-- Content will be injected dynamically -->
+			</div>
+		</div>
+
+		<!-- footer -->
+		<footer id="bottom-banner"></footer>
+	</main>
+
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "{% static 'js/three/build/three.module.js' %}"
+			}
+		}
+	</script>
+	<script type="module">
+		import { initializeSPA } from '{% static "js/spa.js" %}';
+
+
+		document.addEventListener('DOMContentLoaded', function() {  
+			initializeSPA();
+		});
+		window.addEventListener("load", function() {
+			console.log("✅ Tutte le risorse sono state caricate!");
+		});
+	</script>
+	<script type="module" src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>

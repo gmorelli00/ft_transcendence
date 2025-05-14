@@ -1,0 +1,171 @@
+/* Impostazioni di base per la pagina */
+#full-page {
+  width: 100%;
+  height: 100vh;
+  background: url(../media/noise.png) repeat, url(../media/bg_image.jpg) no-repeat top fixed;
+  background-size: cover, cover;
+  z-index: -7;
+}
+
+#content-container {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#dynamic-content {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Header */
+#top-banner {
+  height: 70px;
+  z-index: 1050 !important;
+  background: linear-gradient(120deg, #c32606 30%, #f3a81c 80%, #fdf8a3 100%);
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./../fonts/CityBrawlersBoldCaps.woff2') format('woff2'),
+       url('./../fonts/CityBrawlersBoldCaps.woff') format('woff'),
+       url('./../fonts/CityBrawlersBoldCaps.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Stile per il titolo */
+#title {
+  font-family: 'CustomFont', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  text-align: center;
+  margin: 0;
+}
+
+/* Footer */
+#bottom-banner {
+  height: 70px;
+  background: linear-gradient(120deg, #fdf8a3 30%, #f3a81c 80%, #c32606 100%);
+}
+
+/* Bottone di logout */
+#logout-btn {
+  margin-right: 0;
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+  font-family: "Versa Versa";
+  transition: box-shadow 0.3s, transform 0.3s;
+  background: linear-gradient(120deg, #c32606 30%, #f3a81c 80%, #fdf8a3 100%);
+  border: none;
+  border-radius: 4px;
+  margin: 15px;
+  display: block;
+}
+
+#dropdown {
+  width: 120px;
+  height: 40px;
+  font-family: "Versa Versa";
+  transition: box-shadow 0.3s, transform 0.3s;
+  border: none;
+  margin: 15px;
+}
+
+.dropdown-item.active {
+  background: #f3a81c;
+}
+
+/* Media Queries per dispositivi con schermi più piccoli */
+@media (max-width: 1024px) {
+  #top-banner {
+    height: 60px;
+  }
+
+  #bottom-banner {
+    height: 60px;
+  }
+
+  #logout-btn {
+    width: 100px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  #dropdown {
+    width: 100px;
+    height: 35px;
+  }
+
+  #title {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #full-page {
+    background-size: cover;
+  }
+
+  #dynamic-content {
+    height: auto;
+    padding: 10px;
+  }
+
+  #logout-btn {
+    width: 90px;
+    height: 30px;
+    font-size: 15px;
+    margin: 20px;
+  }
+
+  #dropdown {
+    width: 140px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  #title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #top-banner {
+    height: 50px;
+  }
+
+  #bottom-banner {
+    height: 50px;
+  }
+
+  #logout-btn {
+    width: 60px;
+    height: 25px;
+    font-size: 10px;
+    padding: 0px;
+    margin: 10px;
+    
+  }
+
+  #dropdown {
+    width: 70px;
+    height: 30px;
+    font-size: 10px;
+    padding: 0px;
+    margin: 5px;
+  }
+
+  #title {
+    font-size: 2.5rem;
+    padding: 10px;
+    margin: 0px;
+  }
+}
+

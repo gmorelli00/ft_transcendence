@@ -1,0 +1,185 @@
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  /* Center animation */
+  @media screen and (min-width: 768px) {
+    .top-center-animation {
+      top: min(6.4583333333vw, 124px);
+      width: min(776.0416666667vw, 14900px);
+      height: min(14.7916666667vw, 284px);
+      transform: translateX(-310.4vw);
+      animation: left_to_right 50s linear infinite;
+    }
+  }
+  
+  .top-center-animation {
+    display: block;
+    position: absolute;
+    left: 0;
+    background: url(../media/bg_pp.png) repeat-x 0 0;
+    background-size: auto 100%;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .bottom-center-animation {
+      top: min(27.1875vw, 522px);
+      width: min(776.0416666667vw, 14900px);
+      height: min(14.7916666667vw, 284px);
+      transform: translateX(310.4vw);
+      animation: right_to_left 50s linear infinite;
+    }
+  }
+  
+  .bottom-center-animation {
+    display: block;
+    position: absolute;
+    right: 0;
+    background: url(../media/bg_pp.png) repeat-x;
+    background-size: auto 100%;
+    animation: right_to_left 50s linear infinite;
+  }
+  
+  /* Left animation */
+  @media screen and (min-width: 768px) {
+    .left-animation {
+      /* left: calc(50% - min(50vw, 960px)); */
+      left: 0;
+      width: min(10.9375vw, 210px);
+      opacity: .6;
+    }
+  }
+  
+  .left-animation {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .left-animation span {
+      animation: top_to_bottom 50s linear infinite;
+      transform: translateY(-204vw);
+      width: min(10.8854166667vw, 209px);
+      height: min(510.4166666667vw, 9800px);
+      background-size: 100%;
+    }
+  }
+  
+  .left-animation span {
+    top: 0;
+    position: absolute;
+    background: url(../media/bg_roller.png) repeat-y;
+  }
+  
+  /* Right animation */
+  @media screen and (min-width: 768px) {
+    .right-animation {
+      /* right: calc(50% - min(50vw, 960px)); */
+      right: 0;
+      width: min(10.9375vw, 210px);
+      opacity: .6;
+    }
+  }
+  
+  .right-animation {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .right-animation span {
+      animation: bottom_to_top 50s linear infinite;
+      transform: translateY(-204vw);
+      width: min(10.8854166667vw, 209px);
+      height: min(510.4166666667vw, 9800px);
+      background-size: 100%;
+    }
+  }
+  
+  .right-animation span {
+    bottom: 0;
+    position: absolute;
+    background: url(../media/bg_roller.png) repeat-y;
+  }
+  
+  /* Left & Right span adjustments */
+  @media screen and (min-width: 768px) {
+    .left-animation span, .right-animation span {
+      width: min(10.8854166667vw, 209px);
+      height: min(510.4166666667vw, 9800px);
+      background-size: 100%;
+    }
+  }
+  
+  .left-animation span,
+  .right-animation span {
+    position: absolute;
+    background: url(../media/bg_roller.png) repeat-y;
+  }
+  
+  /* Animations */
+  @keyframes left_to_right {
+    0% {
+      transform: translateX(-310.4vw);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes right_to_left {
+    0% {
+      transform: translateX(310.4vw);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes top_to_bottom {
+    0% {
+      transform: translateY(-204vw);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes bottom_to_top {
+    0% {
+      transform: translateY(204vw);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Media Queries per dispositivi mobili */
+  @media screen and (max-width: 768px) {
+    .top-center-animation, .bottom-center-animation {
+      animation-duration: 25s; /* Velocità di animazione ridotta per dispositivi mobili */
+    }
+  
+    .left-animation span, .right-animation span {
+      animation-duration: 25s; /* Riduci la velocità dell'animazione per schermi più piccoli */
+    }
+  
+    /* Regolazioni per schermi ancora più piccoli */
+    .top-center-animation, .bottom-center-animation,
+    .left-animation span, .right-animation span {
+      background-size: 100% 100%; /* Ottimizza la dimensione delle immagini di sfondo */
+    }
+  }
+  

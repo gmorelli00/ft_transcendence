@@ -1,0 +1,81 @@
+/* Normale */
+@font-face {
+	font-family: 'Quantico';
+	src: url(../fonts/Quantico-8af9157ca7cbcbe9b891ecfc38ec01e1.woff2) format('woff2'),
+		 url(../fonts/Quantico-ee875a3282adb1fb8f1bbd53fe781a76.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+  }
+  
+  /* Corsivo */
+  @font-face {
+	font-family: 'Quantico';
+	src: url(../fonts/Quantico-5af19414984ea404dd1ef0afbcf909b6.woff2) format('woff2'),
+		 url(../fonts/Quantico-5cafc5eaa9aa7acd316e5190cebae777.woff) format('woff');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+  }
+  
+  /* Grassetto */
+  @font-face {
+	font-family: 'Quantico';
+	src: url(../fonts/Quantico-c3d355f5a265263fe8259b10a61b1f5c.woff2) format('woff2'),
+		 url(../fonts/Quantico-771057395707a5d13a809407b5b6ad8d.woff) format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+  }
+  
+  /* Grassetto Corsivo */
+  @font-face {
+	font-family: 'Quantico';
+	src: url(../fonts/Quantico-06a823f62063e485cc0c93c05ac57985.woff2) format('woff2'),
+		 url(../fonts/Quantico-210310bcd29cda265098f2e446c3b6c6.woff) format('woff');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+  }
+
+  /* Body */
+body {
+	font-family: 'Quantico', sans-serif;
+	font-size: 1rem; /* Dimensione base del font */
+  }
+  
+  /* Modifica per schermi tablet (max-width: 1024px) */
+  @media (max-width: 1024px) {
+	body {
+	  font-size: 0.95rem; /* Ridurre leggermente il font sui tablet */
+	}
+  }
+  
+  /* Modifica per schermi mobili (max-width: 768px) */
+  @media (max-width: 768px) {
+	body {
+	  font-size: 0.85rem; /* Ridurre ulteriormente per dispositivi mobili */
+	}
+  }
+  
+  /* Modifica per schermi molto piccoli (max-width: 480px) */
+  @media (max-width: 480px) {
+	body {
+	  font-size: 0.75rem; /* Ancora più piccolo sui dispositivi piccoli */
+	}
+  }
+
+  /* Esempio di grassetto responsivo per schermi più grandi */
+@media (min-width: 1024px) {
+	.bold-text {
+	  font-weight: bold; /* Applica il grassetto solo su schermi grandi */
+	}
+  }
+  
+  @media (max-width: 768px) {
+	.bold-text {
+	  font-weight: normal; /* Disattiva il grassetto su schermi più piccoli */
+	}
+  }
+  
+  
